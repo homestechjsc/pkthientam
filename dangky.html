@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng Ký Khám Bệnh Trực Tuyến - Phòng Khám Đa Khoa Thiện Tâm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <title>Đăng Ký Khám Bệnh - Phòng Khám Đa Khoa Thiện Tâm</title>
   
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- QRCode.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
@@ -31,6 +26,23 @@
   </script>
 
   <style>
+    html, body {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+      overscroll-behavior-y: none;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    input, select, textarea, button {
+      font-size: 16px !important;
+    }
+    @media (min-width: 768px) {
+      input, select, textarea, button {
+        font-size: 14px !important;
+      }
+    }
+
     @media print {
       body * {
         visibility: hidden;
@@ -53,96 +65,96 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-teal-600 selection:text-white">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-teal-600 selection:text-white">
 
   <!-- Header -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-teal-500/20">
-          <i class="fa-solid fa-hospital-user text-xl"></i>
+    <div class="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-teal-500/20">
+          <i class="fa-solid fa-hospital-user text-lg"></i>
         </div>
         <div>
-          <div class="flex items-center space-x-2">
-            <span class="text-xl font-black tracking-tight bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 bg-clip-text text-transparent">THIỆN TÂM</span>
-            <span class="text-[10px] bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded-full uppercase">Đặt Hẹn Online</span>
+          <div class="flex items-center space-x-1.5">
+            <span class="text-lg font-black tracking-tight bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 bg-clip-text text-transparent">THIỆN TÂM</span>
+            <span class="text-[9px] bg-teal-100 text-teal-800 font-bold px-1.5 py-0.2 rounded-full uppercase">Online</span>
           </div>
-          <p class="text-xs text-slate-500">Phòng Khám Đa Khoa Thiện Tâm</p>
+          <p class="text-[11px] text-slate-500 leading-none">Phòng Khám Đa Khoa</p>
         </div>
       </div>
       <div class="text-right">
-        <span class="text-xs text-slate-400 block font-medium">Hỗ trợ tiếp đón</span>
+        <span class="text-[10px] text-slate-400 block font-medium">Hotline hỗ trợ</span>
         <span class="text-xs font-bold text-teal-700 font-mono">0912.345.678</span>
       </div>
     </div>
   </header>
 
   <!-- Toast Notification -->
-  <div id="toastContainer" class="fixed top-16 right-4 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+  <div id="toastContainer" class="fixed top-14 right-4 left-4 sm:left-auto sm:w-80 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
-  <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 py-6">
+  <main class="flex-grow max-w-lg w-full mx-auto px-3 sm:px-4 py-4 space-y-4">
 
     <!-- Giới thiệu -->
-    <div class="mb-6 bg-gradient-to-r from-teal-800 via-teal-700 to-emerald-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-      <div class="absolute -right-8 -bottom-8 opacity-10 text-white text-9xl pointer-events-none">
+    <div class="bg-gradient-to-r from-teal-800 via-teal-700 to-emerald-600 rounded-2xl p-4 sm:p-5 text-white shadow-md relative overflow-hidden">
+      <div class="absolute -right-6 -bottom-6 opacity-10 text-white text-8xl pointer-events-none">
         <i class="fa-solid fa-stethoscope"></i>
       </div>
       <div class="relative z-10">
-        <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2">
+        <div class="inline-flex items-center space-x-1.5 bg-white/20 backdrop-blur-sm px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider mb-1.5">
           <i class="fa-regular fa-clock"></i>
-          <span>Check-in nhanh không cần xếp hàng</span>
+          <span>Tối đa 3 bệnh nhân / khung giờ</span>
         </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Đăng Ký Đặt Lịch Khám Bệnh</h1>
-        <p class="mt-1 text-teal-100 text-xs sm:text-sm">
-          Nhận ngay mã QR tiếp đón trên điện thoại. Khi đến phòng khám, đưa mã QR quét tại quầy lễ tân để vào thẳng danh sách chờ khám.
+        <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Đăng Ký Khám Bệnh</h1>
+        <p class="mt-1 text-teal-100 text-xs leading-relaxed">
+          Khoa Nội Tổng Quát - Nhận mã QR tiếp đón để vào thẳng phòng khám, giảm tối đa thời gian chờ đợi.
         </p>
       </div>
     </div>
 
-    <!-- KHỐI 1: FORM NHẬP THÔNG TIN (Ẩn đi sau khi đăng ký thành công) -->
-    <div id="formSection" class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
-      <form id="bookingForm" class="space-y-4">
+    <!-- KHỐI 1: FORM ĐĂNG KÝ -->
+    <div id="formSection" class="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm">
+      <form id="bookingForm" class="space-y-3.5">
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-              Họ và tên bệnh nhân <span class="text-rose-500">*</span>
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                <i class="fa-regular fa-user text-sm"></i>
-              </div>
-              <input type="text" id="patientName" required placeholder="Nguyễn Văn A" 
-                class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all font-medium">
+        <!-- Họ tên -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">
+            Họ và tên bệnh nhân <span class="text-rose-500">*</span>
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-regular fa-user text-sm"></i>
             </div>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-              Số điện thoại liên hệ <span class="text-rose-500">*</span>
-            </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                <i class="fa-solid fa-phone text-sm"></i>
-              </div>
-              <input type="tel" id="patientPhone" required pattern="[0-9]{10}" placeholder="0912345678" 
-                class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all">
-            </div>
+            <input type="text" id="patientName" required placeholder="Nguyễn Văn A" 
+              class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all font-medium uppercase outline-none">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- SĐT & Năm sinh -->
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Số CCCD / Định danh</label>
-            <input type="text" id="patientIdCard" placeholder="079198001234" 
-              class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">
+              Số điện thoại <span class="text-rose-500">*</span>
+            </label>
+            <input type="tel" id="patientPhone" required pattern="[0-9]{10}" placeholder="0912345678" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none">
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">
+              Ngày / Năm sinh <span class="text-rose-500">*</span>
+            </label>
+            <input type="date" id="patientDob" required
+              class="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none text-xs">
+          </div>
+        </div>
+
+        <!-- Giới tính & CCCD -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">
               Giới tính <span class="text-rose-500">*</span>
             </label>
-            <select id="patientGender" required class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all">
+            <select id="patientGender" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none">
               <option value="Nam">Nam</option>
               <option value="Nữ">Nữ</option>
               <option value="Khác">Khác</option>
@@ -150,95 +162,92 @@
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-              Ngày sinh / Năm sinh <span class="text-rose-500">*</span>
-            </label>
-            <input type="date" id="patientDob" required
-              class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Số CCCD (nếu có)</label>
+            <input type="text" id="patientIdCard" placeholder="079198001234" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Chuyên khoa (Chỉ 1 khoa Nội Tổng Quát) & Ngày hẹn -->
+        <div class="space-y-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-              Chuyên khoa khám <span class="text-rose-500">*</span>
-            </label>
-            <select id="department" required class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all font-medium">
-              <option value="Khoa Nội Tổng Quát">Khoa Nội Tổng Quát</option>
-              
-            </select>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Chuyên khoa khám</label>
+            <div class="w-full px-3 py-2.5 bg-teal-50 border border-teal-200 rounded-xl text-teal-800 font-bold text-xs flex items-center justify-between">
+              <span>Khoa Nội Tổng Quát (Phòng 102)</span>
+              <i class="fa-solid fa-circle-check text-teal-600 text-sm"></i>
+            </div>
+            <input type="hidden" id="department" value="Khoa Nội Tổng Quát">
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">
               Ngày khám mong muốn <span class="text-rose-500">*</span>
             </label>
             <input type="date" id="appointmentDate" required 
-              class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all">
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none">
           </div>
         </div>
 
-        <!-- Khung giờ tự đổi theo ngày -->
+        <!-- Khung giờ (Tối đa 3 người/khung) -->
         <div>
-          <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center justify-between mb-1.5">
             <label class="block text-xs font-semibold text-slate-700">
-              Khung giờ tiếp nhận khám <span class="text-rose-500">*</span>
+              Khung giờ tiếp nhận <span class="text-rose-500">*</span>
             </label>
-            <span id="dayTypeBadge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+            <span id="dayTypeBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
               Thứ 2 - Thứ 6
             </span>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="slotPickerContainer"></div>
+          <div class="grid grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1" id="slotPickerContainer"></div>
         </div>
 
+        <!-- Triệu chứng -->
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-            Lý do khám / Triệu chứng hiện tại <span class="text-rose-500">*</span>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">
+            Lý do khám / Triệu chứng <span class="text-rose-500">*</span>
           </label>
-          <textarea id="symptoms" rows="3" required placeholder="Ví dụ: đau rát họng, ho sốt nhẹ, khám định kỳ..." 
-            class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all"></textarea>
+          <textarea id="symptoms" rows="2" required placeholder="Mô tả triệu chứng hiện tại..." 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none resize-none"></textarea>
         </div>
 
-        <button type="submit" id="submitBtn" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold shadow-md shadow-teal-500/25 transition-all transform active:scale-[0.99] flex items-center justify-center space-x-2 text-base">
+        <button type="submit" id="submitBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold shadow-md shadow-teal-500/25 transition-all transform active:scale-[0.98] flex items-center justify-center space-x-2 text-sm sm:text-base">
           <i class="fa-solid fa-qrcode text-lg"></i>
           <span>Xác Nhận & Lấy Mã QR Tiếp Đón</span>
         </button>
       </form>
     </div>
 
-    <!-- KHỐI 2: KẾT QUẢ PHIẾU KHÁM VÀ MÃ QR (Mặc định ẩn) -->
+    <!-- KHỐI 2: PHIẾU KHÁM VÀ QR -->
     <div id="ticketResultSection" class="hidden space-y-4">
-      <div id="printTicketContainer" class="bg-white border-2 border-teal-600/30 rounded-2xl p-6 sm:p-8 relative shadow-md">
+      <div id="printTicketContainer" class="bg-white border-2 border-teal-600/30 rounded-2xl p-5 relative shadow-md">
         
-        <div class="flex items-center justify-between border-b pb-4 mb-4">
-          <div class="flex items-center space-x-2.5">
-            <i class="fa-solid fa-heart-pulse text-teal-600 text-2xl"></i>
+        <div class="flex items-center justify-between border-b pb-3 mb-3">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-heart-pulse text-teal-600 text-xl"></i>
             <div>
-              <h3 class="font-black text-base text-slate-900">PHIẾU TIẾP ĐÓN ĐIỆN TỬ</h3>
-              <p class="text-[11px] text-slate-500 font-semibold uppercase">PHÒNG KHÁM ĐA KHOA THIỆN TÂM</p>
+              <h3 class="font-black text-sm text-slate-900">PHIẾU TIẾP ĐÓN ĐIỆN TỬ</h3>
+              <p class="text-[10px] text-slate-500 font-semibold uppercase">PHÒNG KHÁM THIỆN TÂM</p>
             </div>
           </div>
-          <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800">CHỜ CHECK-IN</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">CHỜ CHECK-IN</span>
         </div>
 
-        <div class="bg-teal-50/80 rounded-2xl p-4 text-center border border-teal-100 mb-6">
-          <span class="text-xs font-bold text-teal-800 uppercase tracking-wider block">MÃ SỐ KHÁM BỆNH</span>
-          <div class="text-5xl font-extrabold text-teal-700 my-1 font-mono tracking-tight" id="ticketNumberDisplay">#01</div>
-          <div class="text-xs font-semibold text-slate-600" id="ticketRoomDisplay">Khoa Nội</div>
+        <div class="bg-teal-50/80 rounded-xl p-3 text-center border border-teal-100 mb-4">
+          <span class="text-[11px] font-bold text-teal-800 uppercase tracking-wider block">SỐ THỨ TỰ TẠM THỜI</span>
+          <div class="text-4xl font-extrabold text-teal-700 my-0.5 font-mono tracking-tight" id="ticketNumberDisplay">#01</div>
+          <div class="text-xs font-semibold text-slate-600">Phòng 102 - Khoa Nội Tổng Quát</div>
         </div>
 
-        <!-- Khung QR Code -->
-        <div class="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-2xl border border-slate-200/80 mb-6">
-          <div id="qrcode" class="p-2.5 bg-white rounded-xl shadow-sm border border-slate-200"></div>
-          <span class="text-sm font-mono font-bold text-teal-700 mt-3" id="ticketCodeDisplay">MED-2026-XXXX</span>
-          <p class="text-xs text-slate-500 mt-1 text-center">Đưa mã QR này quét tại quầy lễ tân để check-in vào phòng khám</p>
+        <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-xl border border-slate-200/80 mb-4">
+          <div id="qrcode" class="p-2 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center"></div>
+          <span class="text-sm font-mono font-bold text-teal-700 mt-2" id="ticketCodeDisplay">MED-2026-XXXX</span>
+          <p class="text-[11px] text-slate-500 mt-0.5 text-center">Đưa mã QR này quét tại quầy lễ tân để check-in</p>
         </div>
 
-        <!-- Thông tin chi tiết -->
-        <div class="space-y-2 text-xs border-t pt-4 border-dashed border-slate-200">
+        <div class="space-y-1.5 text-xs border-t pt-3 border-dashed border-slate-200">
           <div class="flex justify-between">
-            <span class="text-slate-500">Họ và tên bệnh nhân:</span>
-            <span class="font-bold text-slate-800 text-sm" id="ticketNameDisplay">--</span>
+            <span class="text-slate-500">Bệnh nhân:</span>
+            <span class="font-bold text-slate-800" id="ticketNameDisplay">--</span>
           </div>
           <div class="flex justify-between">
             <span class="text-slate-500">Số điện thoại:</span>
@@ -250,26 +259,21 @@
           </div>
           <div class="flex justify-between">
             <span class="text-slate-500">Chuyên khoa:</span>
-            <span class="font-medium text-slate-700" id="ticketDeptDisplay">--</span>
+            <span class="font-medium text-slate-700">Khoa Nội Tổng Quát</span>
           </div>
         </div>
 
-        <div class="mt-6 pt-3 border-t border-slate-100 text-center text-xs text-slate-400">
-          Quý khách vui lòng có mặt trước giờ khám 10-15 phút để hoàn tất thủ tục tiếp đón.
+        <div class="mt-4 pt-2.5 border-t border-slate-100 text-center text-[10px] text-slate-400">
+          Vui lòng có mặt trước giờ khám 10-15 phút để làm thủ tục tiếp đón.
         </div>
       </div>
 
-      <!-- Nút thao tác sau khi có phiếu -->
-      <div class="flex flex-wrap gap-2.5 no-print">
-        <button onclick="window.print()" class="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition">
-          <i class="fa-solid fa-print"></i>
-          <span>In Phiếu</span>
-        </button>
-        <button onclick="downloadQrCode()" class="flex-1 py-3 px-4 bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition">
+      <div class="flex flex-col sm:flex-row gap-2 no-print">
+        <button onclick="downloadQrCode()" class="flex-1 py-3 px-3 bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition">
           <i class="fa-solid fa-download"></i>
-          <span>Lưu Ảnh QR</span>
+          <span>Lưu Ảnh QR Vào Máy</span>
         </button>
-        <button onclick="resetForNewBooking()" class="w-full py-3 px-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition">
+        <button onclick="resetForNewBooking()" class="flex-1 py-3 px-3 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition">
           <i class="fa-solid fa-plus"></i>
           <span>Đăng Ký Thêm Lượt Mới</span>
         </button>
@@ -278,7 +282,6 @@
 
   </main>
 
-  <!-- Script Firebase & Xử lý đăng ký -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -297,14 +300,16 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    const MAX_PATIENTS_PER_SLOT = 3; // Giới hạn tối đa 3 người / slot
+
     let currentAppointments = [];
     const appointmentsRef = ref(db, 'appointments');
     onValue(appointmentsRef, (snapshot) => {
       const data = snapshot.val();
       currentAppointments = data ? Object.values(data) : [];
+      renderTimeSlots(); // Cập nhật lại số lượng chỗ trống thời gian thực
     });
 
-    // Cấu hình khung giờ
     const TIME_SLOTS = {
       weekday: [
         { slot: "11:30 - 12:00", label: "Buổi Trưa" },
@@ -342,29 +347,59 @@
       const badge = document.getElementById("dayTypeBadge");
       if (!dateInput || !container) return;
 
-      const d = new Date(dateInput.value + "T00:00:00");
+      const selectedDate = dateInput.value;
+      if (!selectedDate) return;
+
+      const d = new Date(selectedDate + "T00:00:00");
       const dayOfWeek = d.getDay();
       const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
       const slots = isWeekend ? TIME_SLOTS.weekend : TIME_SLOTS.weekday;
 
       if (badge) {
         if (isWeekend) {
-          badge.textContent = dayOfWeek === 0 ? "Chủ Nhật (Giờ Cuối Tuần)" : "Thứ 7 (Giờ Cuối Tuần)";
-          badge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200";
+          badge.textContent = dayOfWeek === 0 ? "Chủ Nhật" : "Thứ 7";
+          badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200";
         } else {
           const days = ["CN", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
-          badge.textContent = `${days[dayOfWeek]} (Giờ Ngày Thường)`;
-          badge.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200";
+          badge.textContent = `${days[dayOfWeek]}`;
+          badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200";
         }
       }
 
-      container.innerHTML = slots.map((item, index) => `
-        <label class="cursor-pointer border border-slate-200 rounded-xl p-2.5 text-center hover:border-teal-500 transition-all has-[:checked]:border-teal-600 has-[:checked]:bg-teal-50 has-[:checked]:text-teal-700">
-          <input type="radio" name="appointmentSlot" value="${item.slot}" ${index === 0 ? "checked" : ""} class="hidden">
-          <div class="text-xs font-bold font-mono">${item.slot}</div>
-          <div class="text-[10px] text-slate-400 mt-0.5">${item.label}</div>
-        </label>
-      `).join("");
+      // Lấy danh sách bệnh nhân hợp lệ của ngày được chọn (không tính người đã bị hủy/vắng mặt)
+      const dayBookings = currentAppointments.filter(a => a.date === selectedDate && a.status !== 'ABSENT');
+
+      let hasSelectedFirstAvailable = false;
+
+      container.innerHTML = slots.map((item) => {
+        // Đếm số người đã đăng ký khung giờ này
+        const bookedCount = dayBookings.filter(a => a.timeSlot === item.slot).length;
+        const isFull = bookedCount >= MAX_PATIENTS_PER_SLOT;
+        const remaining = Math.max(0, MAX_PATIENTS_PER_SLOT - bookedCount);
+
+        let checkAttr = "";
+        if (!isFull && !hasSelectedFirstAvailable) {
+          checkAttr = "checked";
+          hasSelectedFirstAvailable = true;
+        }
+
+        if (isFull) {
+          return `
+            <div class="border border-slate-200 bg-slate-100 rounded-xl p-2 text-center opacity-60 cursor-not-allowed select-none">
+              <div class="text-[11px] font-bold font-mono text-slate-400 line-through">${item.slot}</div>
+              <div class="text-[9px] text-rose-500 font-semibold mt-0.5">Đã đầy (3/3)</div>
+            </div>
+          `;
+        }
+
+        return `
+          <label class="cursor-pointer border border-slate-200 rounded-xl p-2 text-center hover:border-teal-500 transition-all has-[:checked]:border-teal-600 has-[:checked]:bg-teal-50 has-[:checked]:text-teal-700 block">
+            <input type="radio" name="appointmentSlot" value="${item.slot}" ${checkAttr} class="hidden">
+            <div class="text-[11px] font-bold font-mono">${item.slot}</div>
+            <div class="text-[9px] text-emerald-600 font-medium mt-0.5">Còn ${remaining} chỗ</div>
+          </label>
+        `;
+      }).join("");
     }
 
     function formatProperCase(str) {
@@ -372,37 +407,44 @@
       return str.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
     }
 
-    function getRoomForDepartment(dept) {
-      switch (dept) {
-        case 'Khoa Nội Tổng Quát': return 'Khoa Nội';
-               default: return 'Phòng Khám Tổng Quát';
-      }
-    }
-
-    // Khởi tạo ngày
     const apptDateInput = document.getElementById("appointmentDate");
     apptDateInput.value = new Date().toISOString().split('T')[0];
     apptDateInput.addEventListener("change", renderTimeSlots);
     renderTimeSlots();
 
-    // Xử lý gửi biểu mẫu
     const form = document.getElementById("bookingForm");
     const submitBtn = document.getElementById("submitBtn");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Đang khởi tạo phiếu...';
 
       const apptDate = apptDateInput.value;
+      const slotInput = document.querySelector('input[name="appointmentSlot"]:checked');
+      
+      if (!slotInput) {
+        showToast("Tất cả các khung giờ trong ngày này đã đầy, vui lòng chọn ngày khác!", "error");
+        return;
+      }
+
+      const slot = slotInput.value;
+
+      // Kiểm tra lại lần cuối số lượng đặt trên Firebase để tránh vượt quá 3 người cùng lúc
+      const currentSlotBookings = currentAppointments.filter(a => a.date === apptDate && a.timeSlot === slot && a.status !== 'ABSENT');
+      if (currentSlotBookings.length >= MAX_PATIENTS_PER_SLOT) {
+        showToast(`Khung giờ ${slot} vừa có người đặt và đã đủ 3 người. Vui lòng chọn khung giờ khác!`, "error");
+        renderTimeSlots();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>Đang khởi tạo phiếu...';
+
       const sameDayCount = currentAppointments.filter(a => a.date === apptDate).length;
       const stt = sameDayCount + 1;
       const randSuffix = Math.floor(1000 + Math.random() * 9000);
       const appointmentId = `MED-2026-${randSuffix}`;
-      const department = document.getElementById("department").value;
-      const room = getRoomForDepartment(department);
-      const slotInput = document.querySelector('input[name="appointmentSlot"]:checked');
-      const slot = slotInput ? slotInput.value : "11:30 - 12:00";
+      const department = "Khoa Nội Tổng Quát";
+      const room = "Phòng 102 - Khoa Nội";
 
       const newRecord = {
         id: appointmentId,
@@ -417,7 +459,7 @@
         date: apptDate,
         timeSlot: slot,
         symptoms: document.getElementById("symptoms").value.trim(),
-        status: "PENDING", // Lưu trạng thái PENDING để chờ quầy check-in
+        status: "PENDING",
         createdAt: new Date().toISOString()
       };
 
@@ -425,37 +467,32 @@
         const newRef = push(ref(db, "appointments"));
         await set(newRef, newRecord);
 
-        // Hiển thị phiếu khám
         document.getElementById("formSection").classList.add("hidden");
         document.getElementById("ticketResultSection").classList.remove("hidden");
 
         document.getElementById("ticketNumberDisplay").textContent = '#' + (stt < 10 ? '0' + stt : stt);
-        document.getElementById("ticketRoomDisplay").textContent = room;
         document.getElementById("ticketCodeDisplay").textContent = appointmentId;
         document.getElementById("ticketNameDisplay").textContent = newRecord.fullName;
         document.getElementById("ticketPhoneDisplay").textContent = newRecord.phone;
         document.getElementById("ticketTimeDisplay").textContent = `${newRecord.date} (${newRecord.timeSlot})`;
-        document.getElementById("ticketDeptDisplay").textContent = newRecord.department;
 
-        // Render QR Code (chỉ chứa ID để gọn nhẹ và nhạy quét)
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = '';
         new QRCode(qrContainer, {
           text: appointmentId,
-          width: 150,
-          height: 150,
+          width: 130,
+          height: 130,
           colorDark: "#0f766e",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M
         });
 
-        // Xóa trắng form để không lưu cache dữ liệu cũ
         form.reset();
         apptDateInput.value = new Date().toISOString().split('T')[0];
         renderTimeSlots();
 
         try {
-          confetti({ particleCount: 75, spread: 60, origin: { y: 0.6 } });
+          confetti({ particleCount: 60, spread: 50, origin: { y: 0.6 } });
         } catch (e) {}
 
         showToast("Đăng ký thành công! Vui lòng lưu lại mã QR", "success");
@@ -463,7 +500,7 @@
         showToast("Lỗi gửi dữ liệu: " + err.message, "error");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-qrcode text-lg mr-2"></i><span>Xác Nhận & Lấy Mã QR Tiếp Đón</span>';
+        submitBtn.innerHTML = '<i class="fa-solid fa-qrcode text-lg mr-1.5"></i><span>Xác Nhận & Lấy Mã QR Tiếp Đón</span>';
       }
     });
 
@@ -481,7 +518,7 @@
     window.resetForNewBooking = function() {
       document.getElementById("ticketResultSection").classList.add("hidden");
       document.getElementById("formSection").classList.remove("hidden");
-      document.getElementById("patientName").focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     function showToast(message, type = 'info') {
@@ -489,7 +526,7 @@
       const toast = document.createElement('div');
       let bg = type === 'success' ? 'bg-emerald-600' : (type === 'error' ? 'bg-rose-600' : 'bg-slate-800');
       let icon = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-triangle-exclamation' : 'fa-info-circle');
-      toast.className = `${bg} text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-2 text-xs font-semibold pointer-events-auto transition-all`;
+      toast.className = `${bg} text-white px-3.5 py-2.5 rounded-xl shadow-lg flex items-center space-x-2 text-xs font-semibold pointer-events-auto transition-all`;
       toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${message}</span>`;
       container.appendChild(toast);
       setTimeout(() => {
