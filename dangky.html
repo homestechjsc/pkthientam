@@ -300,14 +300,14 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const MAX_PATIENTS_PER_SLOT = 3; // Giới hạn tối đa 3 người / slot
+    const MAX_PATIENTS_PER_SLOT = 3; // Giới hạn tối đa 3 người / slot[cite: 7]
 
     let currentAppointments = [];
     const appointmentsRef = ref(db, 'appointments');
     onValue(appointmentsRef, (snapshot) => {
       const data = snapshot.val();
       currentAppointments = data ? Object.values(data) : [];
-      renderTimeSlots(); // Cập nhật lại số lượng chỗ trống thời gian thực
+      renderTimeSlots();
     });
 
     const TIME_SLOTS = {
@@ -366,13 +366,11 @@
         }
       }
 
-      // Lấy danh sách bệnh nhân hợp lệ của ngày được chọn (không tính người đã bị hủy/vắng mặt)
       const dayBookings = currentAppointments.filter(a => a.date === selectedDate && a.status !== 'ABSENT');
 
       let hasSelectedFirstAvailable = false;
 
       container.innerHTML = slots.map((item) => {
-        // Đếm số người đã đăng ký khung giờ này
         const bookedCount = dayBookings.filter(a => a.timeSlot === item.slot).length;
         const isFull = bookedCount >= MAX_PATIENTS_PER_SLOT;
         const remaining = Math.max(0, MAX_PATIENTS_PER_SLOT - bookedCount);
@@ -407,9 +405,22 @@
       return str.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
     }
 
+    // Lấy ngày hiện tại YYYY-MM-DD theo giờ địa phương
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    
     const apptDateInput = document.getElementById("appointmentDate");
-    apptDateInput.value = new Date().toISOString().split('T')[0];
-    apptDateInput.addEventListener("change", renderTimeSlots);
+    apptDateInput.value = todayStr;
+    apptDateInput.min = todayStr; // KHÓA LÙI NGÀY: Khóa trên lịch chọn không cho chọn ngày quá khứ
+
+    apptDateInput.addEventListener("change", () => {
+      // Chặn nếu người dùng cố tình gõ tay ngày trong quá khứ
+      if (apptDateInput.value < todayStr) {
+        showToast("Không được đặt lịch lùi về ngày trong quá khứ!", "error");
+        apptDateInput.value = todayStr;
+      }
+      renderTimeSlots();
+    });
     renderTimeSlots();
 
     const form = document.getElementById("bookingForm");
@@ -419,6 +430,15 @@
       e.preventDefault();
 
       const apptDate = apptDateInput.value;
+
+      // Kiểm tra an toàn trước khi đẩy dữ liệu
+      if (apptDate < todayStr) {
+        showToast("Ngày đặt lịch không hợp lệ! Vui lòng chọn từ ngày hôm nay trở đi.", "error");
+        apptDateInput.value = todayStr;
+        renderTimeSlots();
+        return;
+      }
+
       const slotInput = document.querySelector('input[name="appointmentSlot"]:checked');
       
       if (!slotInput) {
@@ -428,7 +448,6 @@
 
       const slot = slotInput.value;
 
-      // Kiểm tra lại lần cuối số lượng đặt trên Firebase để tránh vượt quá 3 người cùng lúc
       const currentSlotBookings = currentAppointments.filter(a => a.date === apptDate && a.timeSlot === slot && a.status !== 'ABSENT');
       if (currentSlotBookings.length >= MAX_PATIENTS_PER_SLOT) {
         showToast(`Khung giờ ${slot} vừa có người đặt và đã đủ 3 người. Vui lòng chọn khung giờ khác!`, "error");
@@ -488,7 +507,8 @@
         });
 
         form.reset();
-        apptDateInput.value = new Date().toISOString().split('T')[0];
+        apptDateInput.value = todayStr;
+        apptDateInput.min = todayStr;
         renderTimeSlots();
 
         try {
@@ -518,6 +538,11 @@
     window.resetForNewBooking = function() {
       document.getElementById("ticketResultSection").classList.add("hidden");
       document.getElementById("formSection").classList.remove("hidden");
+      
+      apptDateInput.value = todayStr;
+      apptDateInput.min = todayStr;
+      renderTimeSlots();
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
