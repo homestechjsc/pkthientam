@@ -227,9 +227,9 @@
         </div>
 
         <div class="bg-teal-50/80 rounded-2xl p-4 text-center border border-teal-100 mb-6">
-          <span class="text-xs font-bold text-teal-800 uppercase tracking-wider block">SỐ THỨ TỰ TẠM THỜI</span>
+          <span class="text-xs font-bold text-teal-800 uppercase tracking-wider block">MÃ SỐ KHÁM BỆNH</span>
           <div class="text-5xl font-extrabold text-teal-700 my-1 font-mono tracking-tight" id="ticketNumberDisplay">#01</div>
-          <div class="text-xs font-semibold text-slate-600" id="ticketRoomDisplay">Phòng 102 - Khoa Nội</div>
+          <div class="text-xs font-semibold text-slate-600" id="ticketRoomDisplay">Khoa Nội</div>
         </div>
 
         <!-- Khung QR Code -->
@@ -379,14 +379,8 @@
 
     function getRoomForDepartment(dept) {
       switch (dept) {
-        case 'Khoa Nội Tổng Quát': return 'Phòng 102 - Khoa Nội';
-        case 'Khoa Ngoại - Xương Khớp': return 'Phòng 204 - Ngoại Khoa';
-        case 'Khoa Tai Mũi Họng': return 'Phòng 108 - Tai Mũi Họng';
-        case 'Khoa Răng Hàm Mặt': return 'Phòng 301 - Răng Hàm Mặt';
-        case 'Khoa Nhi Đồng': return 'Phòng 105 - Nhi Khoa';
-        case 'Khoa Tim Mạch': return 'Phòng 201 - Tim Mạch';
-        case 'Khoa Da Liễu': return 'Phòng 303 - Da Liễu';
-        default: return 'Phòng Khám Tổng Quát';
+        case 'Khoa Nội Tổng Quát': return 'Khoa Nội';
+               default: return 'Phòng Khám Tổng Quát';
       }
     }
 
