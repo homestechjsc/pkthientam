@@ -79,12 +79,12 @@
             <span class="text-lg font-black tracking-tight bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 bg-clip-text text-transparent">THIỆN TÂM</span>
             <span class="text-[9px] bg-teal-100 text-teal-800 font-bold px-1.5 py-0.2 rounded-full uppercase">Online</span>
           </div>
-          <p class="text-[11px] text-slate-500 leading-none">Phòng Khám Đa Khoa</p>
+          <p class="text-[11px] text-slate-500 leading-none">Phòng Khám Chuyên Khoa</p>
         </div>
       </div>
       <div class="text-right">
         <span class="text-[10px] text-slate-400 block font-medium">Hotline hỗ trợ</span>
-        <span class="text-xs font-bold text-teal-700 font-mono">0912.345.678</span>
+        <span class="text-xs font-bold text-teal-700 font-mono">0941.072.059</span>
       </div>
     </div>
   </header>
@@ -106,7 +106,7 @@
         </div>
         <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Đăng Ký Khám Bệnh</h1>
         <p class="mt-1 text-teal-100 text-xs leading-relaxed">
-          Khoa Nội Tổng Quát - Nhận mã QR tiếp đón để vào thẳng phòng khám, giảm tối đa thời gian chờ đợi.
+          Nhận mã QR tiếp đón nhanh chóng để vào thẳng phòng khám, giảm tối đa thời gian chờ đợi.
         </p>
       </div>
     </div>
@@ -129,14 +129,23 @@
           </div>
         </div>
 
-        <!-- SĐT & Năm sinh -->
+        <!-- Số điện thoại (KHÔNG BẮT BUỘC) -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">
+            Số điện thoại <span class="text-slate-400 font-normal">(không bắt buộc)</span>
+          </label>
+          <input type="tel" id="patientPhone" placeholder="Ví dụ: 0941072059" 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none">
+        </div>
+
+        <!-- Tuổi & Ngày/Năm sinh (tự động đồng bộ với nhau) -->
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">
-              Số điện thoại <span class="text-rose-500">*</span>
+              Tuổi <span class="text-slate-400 font-normal">(nhập tuổi tự tính năm)</span>
             </label>
-            <input type="tel" id="patientPhone" required pattern="[0-9]{10}" placeholder="0912345678" 
-              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none">
+            <input type="number" id="patientAge" min="0" max="130" placeholder="Ví dụ: 30" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none font-medium">
           </div>
 
           <div>
@@ -168,15 +177,18 @@
           </div>
         </div>
 
-        <!-- Chuyên khoa (Chỉ 1 khoa Nội Tổng Quát) & Ngày hẹn -->
+        <!-- Chuyên khoa (4 mục khám) & Ngày hẹn -->
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Chuyên khoa khám</label>
-            <div class="w-full px-3 py-2.5 bg-teal-50 border border-teal-200 rounded-xl text-teal-800 font-bold text-xs flex items-center justify-between">
-              <span>Khoa Nội Tổng Quát </span>
-              <i class="fa-solid fa-circle-check text-teal-600 text-sm"></i>
-            </div>
-            <input type="hidden" id="department" value="Khoa Nội Tổng Quát">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">
+              Dịch vụ / Chuyên khoa khám <span class="text-rose-500">*</span>
+            </label>
+            <select id="department" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all font-medium outline-none">
+              <option value="Khám bệnh">Khám bệnh</option>
+              <option value="Vật lý trị liệu">Vật lý trị liệu</option>
+              <option value="Xét nghiệm">Xét nghiệm</option>
+              <option value="Siêu âm">Siêu âm</option>
+            </select>
           </div>
 
           <div>
@@ -206,7 +218,7 @@
           <label class="block text-xs font-semibold text-slate-700 mb-1">
             Lý do khám / Triệu chứng <span class="text-rose-500">*</span>
           </label>
-          <textarea id="symptoms" rows="2" required placeholder="Mô tả triệu chứng hiện tại..." 
+          <textarea id="symptoms" rows="2" required placeholder="Mô tả triệu chứng hiện tại hoặc yêu cầu khám..." 
             class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600 focus:bg-white transition-all outline-none resize-none"></textarea>
         </div>
 
@@ -235,7 +247,7 @@
         <div class="bg-teal-50/80 rounded-xl p-3 text-center border border-teal-100 mb-4">
           <span class="text-[11px] font-bold text-teal-800 uppercase tracking-wider block">SỐ THỨ TỰ TẠM THỜI</span>
           <div class="text-4xl font-extrabold text-teal-700 my-0.5 font-mono tracking-tight" id="ticketNumberDisplay">#01</div>
-          <div class="text-xs font-semibold text-slate-600">Phòng 102 - Khoa Nội Tổng Quát</div>
+          <div class="text-xs font-semibold text-slate-600" id="ticketRoomDisplay">--</div>
         </div>
 
         <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-xl border border-slate-200/80 mb-4">
@@ -250,6 +262,10 @@
             <span class="font-bold text-slate-800" id="ticketNameDisplay">--</span>
           </div>
           <div class="flex justify-between">
+            <span class="text-slate-500">Tuổi / Năm sinh:</span>
+            <span class="font-medium text-slate-700" id="ticketAgeDobDisplay">--</span>
+          </div>
+          <div class="flex justify-between">
             <span class="text-slate-500">Số điện thoại:</span>
             <span class="font-medium text-slate-700" id="ticketPhoneDisplay">--</span>
           </div>
@@ -258,8 +274,8 @@
             <span class="font-semibold text-teal-700" id="ticketTimeDisplay">--</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-500">Chuyên khoa:</span>
-            <span class="font-medium text-slate-700">Khoa Nội Tổng Quát</span>
+            <span class="text-slate-500">Dịch vụ khám:</span>
+            <span class="font-medium text-slate-700" id="ticketDeptDisplay">--</span>
           </div>
         </div>
 
@@ -300,7 +316,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const MAX_PATIENTS_PER_SLOT = 3; // Giới hạn tối đa 3 người / slot[cite: 7]
+    const MAX_PATIENTS_PER_SLOT = 3; // Giới hạn tối đa 3 người / slot[cite: 7, 8]
 
     let currentAppointments = [];
     const appointmentsRef = ref(db, 'appointments');
@@ -367,7 +383,6 @@
       }
 
       const dayBookings = currentAppointments.filter(a => a.date === selectedDate && a.status !== 'ABSENT');
-
       let hasSelectedFirstAvailable = false;
 
       container.innerHTML = slots.map((item) => {
@@ -405,16 +420,53 @@
       return str.toLowerCase().replace(/(^|\s)\S/g, l => l.toUpperCase());
     }
 
-    // Lấy ngày hiện tại YYYY-MM-DD theo giờ địa phương
+    // Ánh xạ 4 dịch vụ/chuyên khoa vào phòng tương ứng
+    function getRoomForDepartment(dept) {
+      switch (dept) {
+        case 'Vật lý trị liệu': return 'Phòng Vật Lý Trị Liệu';
+        case 'Xét nghiệm': return 'Phòng Xét Nghiệm';
+        case 'Siêu âm': return 'Phòng Siêu Âm';
+        case 'Khám bệnh':
+        default: return 'Phòng 102 - Khám Bệnh';
+      }
+    }
+
+    // XỬ LÝ ĐỒNG BỘ TUỔI VÀ NĂM SINH
+    const ageInput = document.getElementById("patientAge");
+    const dobInput = document.getElementById("patientDob");
+    const currentYear = new Date().getFullYear();
+
+    // 1. Nhập Tuổi -> Tự động tính và điền Năm sinh
+    ageInput.addEventListener("input", () => {
+      const ageVal = parseInt(ageInput.value, 10);
+      if (!isNaN(ageVal) && ageVal >= 0 && ageVal <= 130) {
+        const birthYear = currentYear - ageVal;
+        dobInput.value = `${birthYear}-01-01`; // Mặc định ngày 01 tháng 01
+      }
+    });
+
+    // 2. Chọn Ngày/Năm sinh -> Tự động cập nhật Tuổi
+    dobInput.addEventListener("change", () => {
+      if (dobInput.value) {
+        const birthYear = new Date(dobInput.value).getFullYear();
+        if (!isNaN(birthYear)) {
+          const calculatedAge = currentYear - birthYear;
+          if (calculatedAge >= 0 && calculatedAge <= 130) {
+            ageInput.value = calculatedAge;
+          }
+        }
+      }
+    });
+
+    // Lấy ngày hiện tại và khóa lùi ngày
     const now = new Date();
     const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     
     const apptDateInput = document.getElementById("appointmentDate");
     apptDateInput.value = todayStr;
-    apptDateInput.min = todayStr; // KHÓA LÙI NGÀY: Khóa trên lịch chọn không cho chọn ngày quá khứ
+    apptDateInput.min = todayStr;
 
     apptDateInput.addEventListener("change", () => {
-      // Chặn nếu người dùng cố tình gõ tay ngày trong quá khứ
       if (apptDateInput.value < todayStr) {
         showToast("Không được đặt lịch lùi về ngày trong quá khứ!", "error");
         apptDateInput.value = todayStr;
@@ -430,8 +482,6 @@
       e.preventDefault();
 
       const apptDate = apptDateInput.value;
-
-      // Kiểm tra an toàn trước khi đẩy dữ liệu
       if (apptDate < todayStr) {
         showToast("Ngày đặt lịch không hợp lệ! Vui lòng chọn từ ngày hôm nay trở đi.", "error");
         apptDateInput.value = todayStr;
@@ -440,7 +490,6 @@
       }
 
       const slotInput = document.querySelector('input[name="appointmentSlot"]:checked');
-      
       if (!slotInput) {
         showToast("Tất cả các khung giờ trong ngày này đã đầy, vui lòng chọn ngày khác!", "error");
         return;
@@ -462,17 +511,23 @@
       const stt = sameDayCount + 1;
       const randSuffix = Math.floor(1000 + Math.random() * 9000);
       const appointmentId = `MED-2026-${randSuffix}`;
-      const department = "Khoa Nội Tổng Quát";
-      const room = "Phòng 102 - Khoa Nội";
+      const department = document.getElementById("department").value;
+      const room = getRoomForDepartment(department);
+
+      // Tính số tuổi hiện tại để lưu kèm
+      const birthDateVal = document.getElementById("patientDob").value;
+      const calculatedAge = birthDateVal ? (currentYear - new Date(birthDateVal).getFullYear()) : (ageInput.value || "Chưa rõ");
+      const phoneVal = document.getElementById("patientPhone").value.trim() || "Không cung cấp";
 
       const newRecord = {
         id: appointmentId,
         stt: stt,
         fullName: formatProperCase(document.getElementById("patientName").value.trim()),
-        phone: document.getElementById("patientPhone").value.trim(),
+        phone: phoneVal,
+        age: calculatedAge,
         idCard: document.getElementById("patientIdCard").value.trim() || "Chưa cập nhật",
         gender: document.getElementById("patientGender").value,
-        dob: document.getElementById("patientDob").value,
+        dob: birthDateVal,
         department: department,
         room: room,
         date: apptDate,
@@ -490,10 +545,13 @@
         document.getElementById("ticketResultSection").classList.remove("hidden");
 
         document.getElementById("ticketNumberDisplay").textContent = '#' + (stt < 10 ? '0' + stt : stt);
+        document.getElementById("ticketRoomDisplay").textContent = room;
         document.getElementById("ticketCodeDisplay").textContent = appointmentId;
         document.getElementById("ticketNameDisplay").textContent = newRecord.fullName;
+        document.getElementById("ticketAgeDobDisplay").textContent = `${calculatedAge} tuổi (Sinh: ${newRecord.dob || 'N/A'})`;
         document.getElementById("ticketPhoneDisplay").textContent = newRecord.phone;
         document.getElementById("ticketTimeDisplay").textContent = `${newRecord.date} (${newRecord.timeSlot})`;
+        document.getElementById("ticketDeptDisplay").textContent = newRecord.department;
 
         const qrContainer = document.getElementById("qrcode");
         qrContainer.innerHTML = '';
